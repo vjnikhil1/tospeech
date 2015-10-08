@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
 	private TextToSpeech t1;
 	private EditText mess;
 	private Button extract;
+	private Button stop;
 	int result;
 	
 	String text;
@@ -35,7 +36,7 @@ public class MainActivity extends Activity {
 			public void onInit(int status) {
 				if(status==TextToSpeech.SUCCESS)
 				{
-					result=t1.setLanguage(Locale.ENGLISH);
+					result=t1.setLanguage(Locale.UK);
 				}
 				else
 				{
@@ -50,9 +51,6 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				switch(v.getId())
-				{
-				case R.id.button1:
 					if(result==TextToSpeech.LANG_NOT_SUPPORTED||result==TextToSpeech.LANG_MISSING_DATA)
 					{
 						Toast.makeText(getApplicationContext(),"feature not supported",Toast.LENGTH_SHORT).show();
@@ -64,16 +62,21 @@ public class MainActivity extends Activity {
 						text=mess.getText().toString();
 						t1.speak(text, TextToSpeech.QUEUE_FLUSH,null);
 					}
-				case R.id.button2:
+				}
+		});
+        stop = (Button)findViewById(R.id.button2);
+        stop.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
 				if(t1!=null)
 				{
 					t1.stop();
-				}	
-				break;				
 				}
 			}
 		});
-    }
+}
   
     protected Toast makeText(Context applicationContext, String string,
 			int lengthShort) {
